@@ -6,10 +6,16 @@
 //
 
 import Foundation
-struct FlightData: Codable {
-    var airLine: String
-    var flight: String
-    var actualTime: String
+
+// MARK: - User
+struct UserData: Codable {
+    let userID, id: Int
+    let title, body: String
+
+    enum CodingKeys: String, CodingKey {
+        case userID = "userId"
+        case id, title, body
+    }
 }
 
 //https://jsonplaceholder.typicode.com/posts

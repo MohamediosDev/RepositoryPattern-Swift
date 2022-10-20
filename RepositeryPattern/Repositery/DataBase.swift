@@ -8,29 +8,31 @@
 import Foundation
 import RealmSwift
 
-class Flight: Object {
-    @objc dynamic var airline: String = ""
-    @objc dynamic var flight: String = ""
-    @objc dynamic var actualTime: String = ""
+class User: Object {
+    @objc dynamic var userID: Int = 0
+    @objc dynamic var id: Int = 0
+    @objc dynamic var title: String = ""
+    @objc dynamic var body: String = ""
     
     override class func primaryKey() -> String? {
-        return "flight"
+        return "id"
     }
 }
 
 final class Database {
     
-    func save(_ flights: [FlightData]) {
+    func save(_ users: [UserData]) {
         let realm = try! Realm()
         do {
             try realm.write {
                 
-                flights.forEach { flight in
+                users.forEach { user in
                     
-                    let object = Flight()
-                    object.airline = flight.airLine
-                    object.flight = flight.flight
-                    object.actualTime = flight.actualTime
+                    let object = User()
+                    object.id = user.id
+                    object.userID = user.userID
+                    object.title = user.title
+                    object.body = user.body
                     realm.add(object , update: .all)
                 }
             }
@@ -40,12 +42,12 @@ final class Database {
         }
     }
     
-    func getFlights() -> [FlightData] {
+    func getUsers() -> [UserData] {
         
         let realm = try! Realm()
         
-        return realm.objects(Flight.self).map { object in
-            return FlightData(airLine: object.airline, flight: object.flight, actualTime: object.actualTime)
+        return realm.objects(User.self).map { object in
+            return UserData(userID: object.userID, id: object.id, title: object.title, body: object.body)
         }
     }
     
