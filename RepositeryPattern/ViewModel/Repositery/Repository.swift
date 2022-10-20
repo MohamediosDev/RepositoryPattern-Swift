@@ -34,6 +34,7 @@ class Repositery {
                 do {
                     guard let data = data else {return}
                     let userData = try JSONDecoder().decode([UserData].self, from: data)
+                    print("RRRRRR",userData)
                     self.dataBase?.save(userData)
                     complation(.success(userData))
                 } catch {
