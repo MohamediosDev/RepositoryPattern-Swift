@@ -57,6 +57,27 @@ extension ViewController : UITableViewDelegate , UITableViewDataSource {
             .store(in: &anyCancelable)
         return cell
     }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        viewModel
+            .$userData
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] user in
+                guard let self = self else {return}
+                self.showAlert(user[indexPath.row].title)
+            }
+            .store(in: &anyCancelable)
+    }
     
     
+}
+
+extension ViewController {
+    func showAlert(_ message: String) {
+        let alert = UIAlertController(title: "USER", message: message, preferredStyle: .alert)
+        let alertAction = UIAlertAction(title: "Ok", style: .cancel)
+        alert.addAction(alertAction)
+        present(alert, animated: true)
+                                      
+    }
 }
