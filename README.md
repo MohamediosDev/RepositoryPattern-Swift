@@ -1,4 +1,4 @@
- # Repositery Pattern
+ # Repository Pattern
  ### by using:
  - MVVM 
  - Realm
